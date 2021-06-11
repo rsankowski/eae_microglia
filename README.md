@@ -1,2 +1,2 @@
-# eae_microglia
-Analysis of 10x EAE microglia dataset
+# immune cells from Spinal Cord
+Analysis of 10x immune cells from Spinal Cord
