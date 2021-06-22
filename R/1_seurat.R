@@ -1,7 +1,7 @@
 library(Seurat)
 library(SingleCellExperiment)
 library(scDblFinder)
-library(ggplot2)
+library(tidyverse)
 library(clustree)
 
 # Set here your working directory
@@ -24,13 +24,13 @@ ggsave( file.path("plots", "QC", "Qc2_Filtered.pdf"),PlotQC2, device="pdf", widt
 
 ### create UMAP
 SC_NT2 <- NormalizeData(SC_NT2, normalization.method = "LogNormalize")
-SC_NT2 <- FindVariableFeatures(SC_NT2, selection.method = "vst", nfeatures = 2000)
+SC_NT2 <- FindVariableFeatures(SC_NT2, selection.method = "vst", nfeatures = 10000)
 SC_NT2 <- ScaleData(SC_NT2)
 SC_NT2 <- RunPCA(SC_NT2)
 ElbowPlot(SC_NT2)
 SC_NT2 <- RunUMAP(SC_NT2, dims = 1:15)
-Umap_WithDbl <- DimPlot(SC_NT2, reduction = "umap")
-ggsave( file.path("plots", "QC", "UMAP_WithDoublets.pdf"),Umap_WithDbl, device="pdf", width = 8, height=8)
+DimPlot(SC_NT2, reduction = "umap")
+ggsave( file.path("plots", "QC", "UMAP_WithDoublets.pdf"), width = 8, height=8)
 
 ## Remove doublets
 sce <- SingleCellExperiment(assays=list(counts=SC_NT2@assays$RNA@counts))
@@ -55,11 +55,12 @@ SC_NT2s <- FindClusters(SC_NT2s, resolution = seq(from=0.2,to=2,by=0.2))
 #url https://cran.r-project.org/web/packages/clustree/vignettes/clustree.html#seurat-objects
 clustree(SC_NT2s)
 
-SC_NT2s <- FindClusters(SC_NT2s, resolution = 0.6)
+SC_NT2s <- FindClusters(SC_NT2s, resolution = 1.6)
 
-Umap <- DimPlot(SC_NT2s, label = TRUE) + NoLegend()
+DimPlot(SC_NT2s, label = TRUE) + NoLegend()
 ggsave( file.path("plots", "umap", "UMAP_Clusters.pdf"),Umap_NoDbl, device="pdf", width = 6, height=6)
 
 
 #save data
 save(SC_NT2s, file = file.path("data", "seurat_NOdoublets_clusters.RData"))
+
