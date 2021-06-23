@@ -29,7 +29,8 @@ list.of.packages <- c(
   "scuttle",
   "scran",
   "Polychrome",
-  "broom"
+  "broom",
+  "viridis"
   
 )
 

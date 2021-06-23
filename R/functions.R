@@ -49,7 +49,7 @@ plot_expmap_seurat <- function(features, object=all, reduction = "umap", dims=c(
 }
 
 #Marimekko plot without stats
-mosaicGG2 <- function(data, X, FILL, colors = colors_many, rect_col = 'white', line_width = 0.25) {
+mosaicGG2 <- function(data, X, FILL, colors = colors_many, rect_col = 'white', line_width = 0.25, .title = NA) {
   require(dplyr)
   require(reshape2)
   #require(ggthemes)
@@ -91,7 +91,8 @@ mosaicGG2 <- function(data, X, FILL, colors = colors_many, rect_col = 'white', l
     scale_x_continuous(X, expand = c(0,0)) +
     scale_y_continuous("Proportion", expand = c(0,0)) +
     theme_minimal() +
-    theme(legend.position = "bottom")
+    theme(legend.position = "bottom") +
+    labs(title = .title)
   print(g)
 }
 
