@@ -11,8 +11,8 @@ library(SingleCellExperiment)
 ### load Data to classify
 load(file.path("data", "seurat_NOdoublets_clusters.RData"))
 ### load Reference dataset
-load(file.path("data", "Microglia_Roman", "RaceID_data_pv.RData"))
-load(file.path("data", "Microglia_Roman", "metadata_pv.RData"))
+load(file.path("data", "RaceID_data_pv.RData"))
+load(file.path("data", "metadata_pv.RData"))
 
 #extract variable features 
 varfeat <- VariableFeatures(SC_NT2s)

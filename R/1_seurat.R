@@ -8,7 +8,7 @@ library(clustree)
 # setwd("~/Desktop/eae_microglia/")
 ###Read data and generate seurat objects#####
 #load data
-load(file.path("data", "Microglia_Fillatreau", "SC_NT2.rda"))
+load(file.path("data", "SC_NT2.rda"))
 
 ### First check
 SC_NT2[["percent.mt"]] <- PercentageFeatureSet(SC_NT2, pattern = "^mt-")
